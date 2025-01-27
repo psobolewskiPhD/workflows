@@ -69,11 +69,7 @@ jobs:
           python-version: ${{ inputs.python-version }}
           allow-prereleases: true
 
-      - name: Setup Headless Display
-        if: ${{ inputs.qt != '' }}
-        uses: pyvista/setup-headless-display-action@v3.2
-        with:
-          qt: true
+      - uses: tlambert03/setup-qt-libs@v1
 
       - name: Install dependencies
         run: |
@@ -92,5 +88,7 @@ jobs:
         run: ${{ inputs.post-install-cmd }}
 
       - name: Run tests
-        run: python -m pytest --color=yes -W default ${{ inputs.pytest-args }}
-        working-directory: ${{ inputs.dependency-repo }}
+        uses: aganders3/headless-gui@v2
+        with:
+          run: python -m pytest --color=yes -W default ${{ inputs.pytest-args }}
+          working-directory: ${{ inputs.dependency-repo }}
