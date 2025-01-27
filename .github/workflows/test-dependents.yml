@@ -92,3 +92,4 @@ jobs:
         with:
           run: python -m pytest --color=yes -W default ${{ inputs.pytest-args }}
           working-directory: ${{ inputs.dependency-repo }}
+          xvfb-screen-size: 1024x768x24
